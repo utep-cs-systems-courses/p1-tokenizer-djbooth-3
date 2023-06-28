@@ -74,8 +74,8 @@ char **tokenize(char *str)
       tokens[i] = copy_str(str, end - str);
       str = token_start(end);
     }
-  char **terminator = tokens + num_of_tokens;
-  *terminator = 0;
+  char **end = tokens + num_of_tokens;
+  *end = 0;
   return tokens;
 }
 
@@ -96,10 +96,10 @@ void print_tokens(char **tokens)
 void free_tokens(char **tokens)
 {
   char **current = tokens;
-  while (*current != NULL)
+  while (*current != 0)
     {
-      free(*current);
       current++;
+      free(*current);
     }
   free(tokens);
 }
