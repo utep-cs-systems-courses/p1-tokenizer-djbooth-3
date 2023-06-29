@@ -108,7 +108,6 @@ void free_tokens(char **tokens)
       free(*current);
       current++;
     }
-  //free(*current);
   free(tokens);
 }
 

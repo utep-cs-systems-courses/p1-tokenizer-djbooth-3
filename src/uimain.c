@@ -28,8 +28,6 @@ int main()
 	  int id_val = (*(userInput + 1) - '0');
 	  char *str = get_history(history,id_val);
 
-	  puts(str);
-
 	  if (str == NULL)
 	    {
 	      printf("No history found!\n\n");
