@@ -5,16 +5,17 @@
 
 int space_char(char c)
 {
-  return (c == ' ' || c == '\t') ? 1 : 0;
+  return c == ' ' || c == '\t' ? 1 : 0;
 }
 
 int non_space_char(char c)
 {
-  return (c != ' ' && c != '\t' && c != '\0') ? 1 : 0;
+  return c != ' ' && c != '\t' && c != '\0' ? 1 : 0;
 }
 
 char *token_start(char *str)
 {
+  
   while (*str != '\0')
     {
       if (non_space_char(*str))
@@ -49,40 +50,46 @@ int count_tokens(char *str)
 
 char *copy_str(char *inStr, short len)
 {
-  char *cpystr = (char *)malloc((len + 1) * sizeof(char));
+  char *cpystr = (char*)malloc(sizeof(char) * (len + 1));
+  char *cpy2 = cpystr;
+
   
   for (int i = 0; i < len; i++)
     {
-      cpystr[i] = inStr[i];
+      *cpy2 = *inStr;
+
+      cpy2++;
+      inStr++;
     }
 
-  cpystr[len] = '\0';
-
+  *cpy2 = '\0';
+  
   return cpystr;
 }
 
 char **tokenize(char *str)
 {
   int num_of_tokens = count_tokens(str);
-  char **tokens = malloc((num_of_tokens + 1) * sizeof(char));
+  char **tokens = malloc((num_of_tokens + 1) * sizeof(char*));
 
-  str = token_start(str);
-   
-  for (int i = 0; i < num_of_tokens; i++)
+  int i = 0;
+
+  while (*str != '\0')
     {
+      str = token_start(str);
       char *end = token_terminator(str);
-      tokens[i] = copy_str(str, end - str);
-      str = token_start(end);
+      int len = end - str;
+      tokens[i] = copy_str(str,len);
+      str = end;
+      i++;
     }
-  char **end = tokens + num_of_tokens;
-  *end = 0;
+  tokens[i] = 0;
   return tokens;
 }
 
 void print_tokens(char **tokens)
 {
   int count = 0;
-  puts("BELLO");
 
   while (*tokens != 0)
     {
@@ -98,9 +105,10 @@ void free_tokens(char **tokens)
   char **current = tokens;
   while (*current != 0)
     {
-      current++;
       free(*current);
+      current++;
     }
+  //free(*current);
   free(tokens);
 }
 
