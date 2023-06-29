@@ -11,6 +11,7 @@ int main()
   puts("Hello my name is Tokenizer! What can I do for you?");
   puts("Your Options: \n\n Type a sentence. \n\n Type '1' for history. \n\n Type ! then a number to print a past input (example -> !2). \n\n Type 'q' to quit.");
 
+ start:
   while (1)
     {
       printf("> ");
@@ -25,6 +26,13 @@ int main()
       
       else if (userInput[0] == '!')
 	{
+	  /*
+	  if (*(userInput + 1) == '\0');
+	  {
+	    puts("Invaild entry");
+	    goto start; 
+	  }
+	  */
 	  int id_val = (*(userInput + 1) - '0');
 	  char *str = get_history(history,id_val);
 
